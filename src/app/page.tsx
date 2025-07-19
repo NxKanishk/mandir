@@ -45,17 +45,21 @@ export default function DailyDarshanPage() {
   const [open, setOpen] = useState(false)
   const [modalImage, setModalImage] = useState<string | null>(null)
 
-  useEffect(() => {
-  async function fetchProducts() {
-    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false })
-    if (error) {
-      console.error('Error fetching products:', error)
-    } else {
-      setProducts(data || [])
-    }
-  }
-  fetchProducts()
-}, [])
+useEffect(() => {
+        async function fetchProducts() {
+            const {
+                data,
+                error
+            } = await supabase.from('products').select('*').order('name', {ascending: false}) // ⬅️ DESCENDING ORDER by name
+
+            if (error) {
+                console.error('Error fetching products:', error)
+            } else {
+                setProducts(data || [])
+            }
+        }
+        fetchProducts()
+  }, [])
 
 
   const downloadImage = async (url: string, name: string) => {
